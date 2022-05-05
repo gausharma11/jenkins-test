@@ -10,7 +10,13 @@ pipeline {
         stage('install dependencies') {
             steps {
                 echo 'installing dependencies-------------------->>'
-                bat 'python test.py'
+                SET PATH="C:\Users\Gaurav Sharma\AppData\Local\Programs\Python\Python38"
+                mkdir "Gaurav"
+                python -m venv "Gaurav/tempenv"
+                call Gaurav/tempenv/Scripts/activate.bat
+                python -V
+                pip3 -V
+                python test.py        
             }
         }
     }
