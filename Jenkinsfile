@@ -10,6 +10,7 @@ pipeline {
         stage('install dependencies') {
             steps {
                 echo 'installing dependencies-------------------->>'
+                pip3 -V
             }
         }
     }
