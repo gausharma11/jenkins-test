@@ -10,7 +10,7 @@ pipeline {
         stage('install dependencies') {
             steps {
                 echo 'installing dependencies-------------------->>'
-                python test.py
+                bat 'python test.py'
             }
         }
     }
