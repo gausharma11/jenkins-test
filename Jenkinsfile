@@ -18,7 +18,7 @@ pipeline {
                 python test.py
                 ping pypi.python.org
                 cd "Gaurav/tempenv/Scripts"
-                python -m pip install awscliv2
+                python -m pip install awscli
                 aws --version
                 deactivate'''
             }
