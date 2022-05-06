@@ -9,17 +9,13 @@ pipeline {
         }
         stage('install dependencies') {
             steps {
-                bat '''echo \'installing dependencies-------------------->>\'               
-                mkdir "Gaurav"
-                python -m venv "Gaurav/tempenv"
-                call Gaurav/tempenv/Scripts/activate.bat
+                bat '''echo \'installing dependencies-------------------->>\'
+                python -m venv "tempenv"
+                call tempenv/Scripts/activate.bat
                 python -V
                 pip3 -V
                 python test.py
                 ping pypi.python.org
-                cd "Gaurav/tempenv/Scripts"
-                python -m pip install awscliv2
-                aws --version
                 deactivate'''
             }
         }
