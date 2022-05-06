@@ -17,8 +17,7 @@ pipeline {
                 python -V
                 pip3 -V
                 python test.py
-                deactivate
-                rm -rf Gaurav'''
+                deactivate'''
             }
         }
     }
