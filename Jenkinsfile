@@ -16,7 +16,9 @@ pipeline {
                 call Gaurav/tempenv/Scripts/activate.bat
                 python -V
                 pip3 -V
-                python test.py'''     
+                python test.py
+                deactivate
+                rm -rf Gaurav'''
             }
         }
     }
