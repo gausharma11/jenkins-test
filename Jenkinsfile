@@ -16,8 +16,10 @@ pipeline {
                 pip3 -V
                 python test.py
                 ping pypi.python.org
-                python -m pip install -r requirements.txt
-                deactivate'''
+                python -m pip install pytest 
+                deactivate
+                pip install -r requirements.txt
+                aws --version'''                
             }
         }
     }
