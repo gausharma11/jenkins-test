@@ -16,7 +16,7 @@ pipeline {
                 python -V
                 pip3 -V
                 python test.py
-                msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi
+                pip3 install -r requirements.txt
                 aws --version
                 deactivate'''
             }
