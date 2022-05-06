@@ -16,7 +16,7 @@ pipeline {
                 pip3 -V
                 python test.py
                 ping pypi.python.org
-                python -m pip install pytest
+                python -m pip install -r requirements.txt
                 deactivate'''
             }
         }
