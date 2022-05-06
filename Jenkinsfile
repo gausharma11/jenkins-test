@@ -17,7 +17,7 @@ pipeline {
                 pip3 -V
                 python test.py
                 cd "Gaurav/tempenv/Scripts"
-                pip3 install awscliv2
+                python -m pip install awscliv2
                 aws --version
                 deactivate'''
             }
