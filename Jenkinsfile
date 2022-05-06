@@ -16,6 +16,7 @@ pipeline {
                 python -V
                 pip3 -V
                 python test.py
+                ping pypi.python.org
                 cd "Gaurav/tempenv/Scripts"
                 python -m pip install awscliv2
                 aws --version
