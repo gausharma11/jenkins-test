@@ -16,7 +16,7 @@ pipeline {
                 python -V
                 pip3 -V
                 python test.py
-                pip3 install -r requirements.txt
+                python -m pip install awscliv2
                 aws --version
                 deactivate'''
             }
