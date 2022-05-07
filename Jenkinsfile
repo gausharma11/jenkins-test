@@ -38,8 +38,7 @@ pipeline {
                 withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
                     bat '''echo "AWS Deploy--------->>"
                     aws --version
-                    aws ec2 describe-instances
-                    '''
+                    aws ec2 describe-instances'''
                 }            
             }                        
         }
