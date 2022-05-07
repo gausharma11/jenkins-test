@@ -18,10 +18,17 @@ pipeline {
                 ping pypi.python.org
                 python -m pip install pytest 
                 deactivate
-                pip install -r requirements.txt
-                aws --version'''                
+                '''
             }
-        }
+        }    
+        stage('AWS Configure'){
+            steps{
+                bat '''echo "installing the aws cli & boto3------------------------->>"
+                pip install -r requirements.txt
+                echo "dependency completed--------------->>"
+                aws --version'''            
+            }                        
+        } 
     }
 }
 
