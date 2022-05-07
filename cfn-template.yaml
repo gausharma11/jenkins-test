@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
-Description: "EC2 Template"
+Description: A sample template
 
 Parameters:
   InstanceTypeParameter:
@@ -20,8 +20,9 @@ Parameters:
   VPC:
     Type: String
     Default: "vpc-03bdce3bb497ee49f"
-    Description: VPCID
-	
+    Description: VPC id to be mentioned default value.
+
+
 Resources:
 
   InstanceSecurityGroup:
@@ -34,11 +35,11 @@ Resources:
         - IpProtocol: tcp
           FromPort: '3389'
           ToPort: '3389'
-          CidrIp:  0.0.0.0
+          CidrIp:  0.0.0.0/0
 		- IpProtocol: tcp
           FromPort: '22'
           ToPort: '22'
-          CidrIp:  0.0.0.0
+          CidrIp:  0.0.0.0/0
       SecurityGroupEgress:
         - IpProtocol: -1
           CidrIp: 0.0.0.0/0
