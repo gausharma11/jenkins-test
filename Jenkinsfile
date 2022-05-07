@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         AWS_DEFAULT_REGION="us-east-1"
+        AWS_CREDS=credentials('aws-jenkins-creds')
     }
     stages {
         stage('checkout') {
@@ -35,11 +36,9 @@ pipeline {
         }
         stage('AWS Deploy'){
             steps{
-                withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
-                    bat '''echo "AWS Deploy--------->>"
-                    aws --version
-                    aws ec2 describe-instances'''
-                }            
+                bat '''echo "AWS Deploy--------->>"
+                aws --version
+                aws ec2 describe-instances'''          
             }                        
         }
     }
