@@ -38,7 +38,9 @@ pipeline {
             steps{
                 bat '''echo "AWS Deploy--------->>"
                 aws --version
-                aws ec2 describe-instances'''          
+                aws ec2 describe-instances
+                aws cloudformation validate-template --template-body file:///cfn-template.yaml
+                '''          
             }                        
         }
     }
