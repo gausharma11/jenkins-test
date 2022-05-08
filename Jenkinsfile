@@ -40,14 +40,14 @@ pipeline {
         }
         stage('AWS Deploy'){
             steps{
-                if ${params.CFNTemplateAction}=="create" (
                 echo "Choice: ${params.CFNTemplateAction}"
                 bat '''echo "AWS Deploy--------->>"
                 aws --version
                 aws ec2 describe-instances
+                ${CFNTemplateAction}
                 echo "Choice: ${params.CFNTemplateAction}"
                 aws cloudformation validate-template --template-body file://cfn-templates/cfn-template.yaml
-                )'''          
+                '''          
             }                        
         }
     }
