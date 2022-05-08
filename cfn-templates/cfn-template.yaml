@@ -7,9 +7,6 @@ Parameters:
     Type: String
     Default: t2.micro
     Description: Enter instance size. Default is t2.micro.
-  WorkstationIp:
-    Type: String
-    Description: The IP address of the workstation that can RDP into the instance.
   AMI:
     Type: String
     Default: "ami-08aa543413d7bdc57"
@@ -58,3 +55,19 @@ Resources:
         - DeviceName: /dev/sda1
           Ebs:
             VolumeSize: 30
+
+  LambdaZipsBucket:
+    Type: AWS::S3::Bucket
+    
+  MyFunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service role/AWSLambdaBasicExecutionRole
