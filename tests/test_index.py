@@ -4,16 +4,19 @@ Description: Runs a test Lambda index.py
 """
 import json
 import boto3
+import pytest
 
-event = {}
-context = None
+@pytest.fixture
+def data():
+    event = {}
+    context = None
+    return [event, context]
 
-def test_lambda_handler(event, context):
+def test_lambda_handler(data):
     """
     Testing the lambda_handler
     """
-    payload = lambda_handler(event, context)
-    assert payload['statusCode'] == 200
-
-if __name__ == '__main__':
-    test_lambda_handler(event, context)
+    event = {}
+    context = None
+    assert data[0] == event
+    assert data[1] == context
