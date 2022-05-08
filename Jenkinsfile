@@ -20,7 +20,7 @@ pipeline {
                 pip3 -V
                 python test.py
                 ping pypi.python.org
-                python -m pip install pytest pylint coverage
+                python -m pip install pytest pylint coverage json boto3
                 python -m pylint cfn-templates/src/index.py
                 deactivate
                 '''
