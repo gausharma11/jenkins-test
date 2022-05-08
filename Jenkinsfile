@@ -25,6 +25,7 @@ pipeline {
                 ping pypi.python.org
                 python -m pip install pytest pylint coverage boto3
                 python -m pylint cfn-templates/src/index.py
+                python -m pytest tests/test_index.py
                 deactivate
                 '''
             }
