@@ -9,6 +9,8 @@ ec2 = boto3.resource('ec2')
 
 def lambda_handler(event, context):
     """ lambda function to list ec2 instances """
+    print("event=" ,event)
+    print("context=", context)
     filters = [{'Name': 'instance-state-name', 'Values': ['*']}]
     instances = ec2.instances.filter(Filters=filters)
     running_instances = []
