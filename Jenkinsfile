@@ -44,6 +44,7 @@ pipeline {
                     if (${params.CFNTemplateAction}=="create") {
                         echo 'inside if stmt'
                     }
+                }    
                 echo "Choice: ${params.CFNTemplateAction}"
                 bat '''echo "AWS Deploy--------->>"
                 aws --version
