@@ -20,7 +20,8 @@ pipeline {
                 pip3 -V
                 python test.py
                 ping pypi.python.org
-                python -m pip install pytest 
+                python -m pip install pytest pylint coverage
+                python -m pylint cfn-templates/src/index.py
                 deactivate
                 '''
             }
@@ -39,7 +40,7 @@ pipeline {
                 bat '''echo "AWS Deploy--------->>"
                 aws --version
                 aws ec2 describe-instances
-                aws cloudformation validate-template --template-body file://cfn-template.yaml
+                aws cloudformation validate-template --template-body file://cfn-templates/cfn-template.yaml
                 '''          
             }                        
         }
