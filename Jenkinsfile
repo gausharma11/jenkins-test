@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    parameters {
+        choice(name: 'CFNTemplateAction', choices: ['update', 'create', 'delete'], description: 'Pick something')
+    }
     environment {
         AWS_DEFAULT_REGION="us-east-1"
         AWS_CREDS=credentials('aws-jenkins-creds')
@@ -37,11 +40,11 @@ pipeline {
         }
         stage('AWS Deploy'){
             steps{
-                echo ${CFN-Template-Action}
+                echo "Choice: ${params.CFNTemplateAction}"
                 bat '''echo "AWS Deploy--------->>"
                 aws --version
                 aws ec2 describe-instances
-                echo ${CFN-Template-Action}
+                echo "Choice: ${params.CFNTemplateAction}"
                 if ${CFN-Template-Action}=="create" (aws cloudformation validate-template --template-body file://cfn-templates/cfn-template.yaml)
                 '''          
             }                        
