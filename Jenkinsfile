@@ -37,6 +37,7 @@ pipeline {
         }
         stage('AWS Deploy'){
             steps{
+                echo ${CFN-Template-Action}
                 bat '''echo "AWS Deploy--------->>"
                 aws --version
                 aws ec2 describe-instances
