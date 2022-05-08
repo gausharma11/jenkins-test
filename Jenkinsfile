@@ -45,8 +45,7 @@ pipeline {
                 aws --version
                 aws ec2 describe-instances
                 echo "Choice: ${params.CFNTemplateAction}"
-                if ${CFN-Template-Action}=="create" (aws cloudformation validate-template --template-body file://cfn-templates/cfn-template.yaml)
-                '''          
+                if ${params.CFNTemplateAction}=="create" (aws cloudformation validate-template --template-body file://cfn-templates/cfn-template.yaml)'''          
             }                        
         }
     }
