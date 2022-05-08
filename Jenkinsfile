@@ -44,7 +44,9 @@ pipeline {
                 bat '''echo "AWS Deploy--------->>"
                 aws --version
                 SET action=%CFNTemplateAction%
-                if %action%==create (echo "inside if") else (echo "inside else")           
+                if %action%==create (aws cloudformation validate-template --template-body file://cfn-templates/cfn-template.yaml)
+                if %action%==update (aws --version)
+                if %action%==delete (echo "inside delete")
                 '''
             }
         }                        
