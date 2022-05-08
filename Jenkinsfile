@@ -39,15 +39,16 @@ pipeline {
             }                        
         }
         stage('AWS Deploy'){
-            echo "Choice: ${params.CFNTemplateAction}"
-            bat '''echo "AWS Deploy--------->>"
-            aws --version
-            echo %CFNTemplateAction%
-            echo "Choice: ${params.CFNTemplateAction}"
-            aws cloudformation validate-template --template-body file://cfn-templates/cfn-template.yaml
-            '''   
-            }                        
-        }
+            steps{
+                echo "Choice: ${params.CFNTemplateAction}"
+                bat '''echo "AWS Deploy--------->>"
+                aws --version
+                echo %CFNTemplateAction%
+                echo "Choice: ${params.CFNTemplateAction}"
+                aws cloudformation validate-template --template-body file://cfn-templates/cfn-template.yaml
+                '''
+            }
+        }                        
     }
 }
 
