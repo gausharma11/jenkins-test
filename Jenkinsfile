@@ -43,15 +43,8 @@ pipeline {
                 echo "Choice: ${params.CFNTemplateAction}"
                 bat '''echo "AWS Deploy--------->>"
                 aws --version
-                SET action = %CFNTemplateAction%
-                echo %action%
-                if (%action%==create){
-                aws cloudformation validate-template --template-body file://cfn-templates/cfn-template.yaml
-                }
-                else
-                {
-                echo "inside else stmt"
-                }
+                SET action=%CFNTemplateAction%
+                if %action%==create (echo "inside if") else (echo "inside else")           
                 '''
             }
         }                        
