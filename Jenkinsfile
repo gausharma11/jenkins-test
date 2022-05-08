@@ -40,6 +40,7 @@ pipeline {
                 bat '''echo "AWS Deploy--------->>"
                 aws --version
                 aws ec2 describe-instances
+                echo ${CFN-Template-Action}
                 if ${CFN-Template-Action}=="create" (aws cloudformation validate-template --template-body file://cfn-templates/cfn-template.yaml)
                 '''          
             }                        
