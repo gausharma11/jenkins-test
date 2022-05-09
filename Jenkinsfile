@@ -63,9 +63,13 @@ pipeline {
                 echo "validating  template------------------------------->>"
                 aws cloudformation validate-template --template-body file://cfn-templates/cfn-lambda-template.yaml
                 echo "template validated--------------------------------->>"
-                REM if %action%==create (aws cloudformation create-stack --stack-name mycompute --template-body file://cfn-templates/cfn-template.yaml --capabilities CAPABILITY_NAMED_IAM)
-                REM if %action%==update (aws cloudformation update-stack --stack-name mycompute --template-body file://cfn-templates/cfn-template.yaml --capabilities CAPABILITY_NAMED_IAM)
-                REM if %action%==delete (aws cloudformation delete-stack --stack-name mycompute)
+                if %action%==create (aws s3api create-bucket --bucket lambda-bucket --region us-east-1)
+                if %action%==create (aws cloudformation package --template-file cfn-templates/cfn-lambda-template.yaml --s3-bucket lambda-bucket --output-template-file packaged-cfn-lambda-template.yaml)
+                if %action%==create (aws s3 cp packaged-cfn-lambda-template.yaml s3://lambda-bucket/packaged-cfn-lambda-template.yaml --region us-east-1)
+                REM if %action%==create (aws cloudformation create-stack --stack-name mylambdastack --template-url <value> packaged-cfn-lambda-template.yaml s3://lambda-bucket/packaged-cfn-lambda-template.yaml --region us-east-1)
+                
+                REM if %action%==update (aws cloudformation update-stack --stack-name mylambdastack --template-body file://cfn-templates/cfn-template.yaml --capabilities CAPABILITY_NAMED_IAM)
+                REM if %action%==delete (aws cloudformation delete-stack --stack-name mylambdastack)
                 '''
             }
         }
