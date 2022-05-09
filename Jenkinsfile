@@ -50,7 +50,7 @@ pipeline {
                 echo "template validated--------------------------------->>"
                 if %action%==create (aws cloudformation create-stack --stack-name mycompute --template-body file://cfn-templates/cfn-template.yaml --capabilities CAPABILITY_NAMED_IAM)
                 if %action%==update (aws cloudformation update-stack --stack-name mycompute --template-body file://cfn-templates/cfn-template.yaml --capabilities CAPABILITY_NAMED_IAM)
-                //if %action%==delete (aws cloudformation delete-stack --stack-name mycompute)
+                REM if %action%==delete (aws cloudformation delete-stack --stack-name mycompute)
                 '''
             }
         }
@@ -63,9 +63,9 @@ pipeline {
                 echo "validating  template------------------------------->>"
                 aws cloudformation validate-template --template-body file://cfn-templates/cfn-lambda-template.yaml
                 echo "template validated--------------------------------->>"
-                //if %action%==create (aws cloudformation create-stack --stack-name mycompute --template-body file://cfn-templates/cfn-template.yaml --capabilities CAPABILITY_NAMED_IAM)
-                //if %action%==update (aws cloudformation update-stack --stack-name mycompute --template-body file://cfn-templates/cfn-template.yaml --capabilities CAPABILITY_NAMED_IAM)
-                //if %action%==delete (aws cloudformation delete-stack --stack-name mycompute)
+                REM if %action%==create (aws cloudformation create-stack --stack-name mycompute --template-body file://cfn-templates/cfn-template.yaml --capabilities CAPABILITY_NAMED_IAM)
+                REM if %action%==update (aws cloudformation update-stack --stack-name mycompute --template-body file://cfn-templates/cfn-template.yaml --capabilities CAPABILITY_NAMED_IAM)
+                REM if %action%==delete (aws cloudformation delete-stack --stack-name mycompute)
                 '''
             }
         }
