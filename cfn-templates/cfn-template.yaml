@@ -11,10 +11,7 @@ Parameters:
     Type: String
     Default: "ami-08aa543413d7bdc57"
     Description: The Windows AMI to use.
-  Key:
-    Type: String
-    Description: The key used to access the instance.
-    Default: "myKPIreland.pem"
+
   VPC:
     Type: String
     Default: "vpc-03bdce3bb497ee49f"
@@ -22,6 +19,10 @@ Parameters:
 
 
 Resources:
+  NewKeyPair:
+    Type: 'AWS::EC2::KeyPair'
+    Properties:
+      KeyName: MyKeyPair
 
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -49,7 +50,7 @@ Resources:
       ImageId: !Ref AMI
       InstanceType:
         Ref: InstanceTypeParameter
-      KeyName: !Ref Key
+      KeyName: !Ref NewKeyPair
       SecurityGroupIds:
         - Ref: InstanceSecurityGroup
       BlockDeviceMappings:
