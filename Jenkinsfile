@@ -1,8 +1,8 @@
 pipeline {
     agent any
     parameters {
-        choice(name: 'CFNTemplateAction', choices: ['update', 'create', 'delete'], description: 'Pick something')
-        choice(name: 'CFNLambdaTemplateAction', choices: ['update', 'create', 'delete'], description: 'Pick something')
+        choice(name: 'CFNTemplateAction', choices: ['update', 'create', 'delete', 'none'], description: 'Pick something')
+        choice(name: 'CFNLambdaTemplateAction', choices: ['update', 'create', 'delete', 'none'], description: 'Pick something')
     }
     environment {
         AWS_DEFAULT_REGION="us-east-1"
@@ -63,13 +63,14 @@ pipeline {
                 echo "validating  template------------------------------->>"
                 aws cloudformation validate-template --template-body file://cfn-templates/cfn-lambda-template.yaml
                 echo "template validated--------------------------------->>"
-                REM if %action%==create (aws s3api create-bucket --bucket demo-gaurav-lambdajenk --region us-east-1)
+                if %action%==create (aws s3api create-bucket --bucket demo-gaurav-lambdajenk --region us-east-1)
                 if %action%==create (aws cloudformation package --template-file cfn-templates/cfn-lambda-template.yaml --s3-bucket demo-gaurav-lambdajenk --output-template-file packaged-cfn-lambda-template.yaml)
-                REM if %action%==create (aws s3 cp packaged-cfn-lambda-template.yaml s3://demo-gaurav-lambdajenk/packaged-cfn-lambda-template.yaml --region us-east-1)
                 if %action%==create (aws cloudformation deploy --template-file packaged-cfn-lambda-template.yaml --stack-name mylambdastack --capabilities CAPABILITY_NAMED_IAM)
                 
-                REM if %action%==update (aws cloudformation update-stack --stack-name mylambdastack --template-body file://cfn-templates/cfn-template.yaml --capabilities CAPABILITY_NAMED_IAM)
-                REM if %action%==delete (aws cloudformation delete-stack --stack-name mylambdastack)
+                if %action%==update (aws cloudformation package --template-file cfn-templates/cfn-lambda-template.yaml --s3-bucket demo-gaurav-lambdajenk --output-template-file packaged-cfn-lambda-template.yaml)
+                if %action%==update (aws cloudformation deploy --template-file packaged-cfn-lambda-template.yaml --stack-name mylambdastack --capabilities CAPABILITY_NAMED_IAM)
+                
+                if %action%==delete (aws cloudformation delete-stack --stack-name mylambdastack)
                 '''
             }
         }
