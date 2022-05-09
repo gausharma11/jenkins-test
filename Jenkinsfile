@@ -66,7 +66,7 @@ pipeline {
                 REM if %action%==create (aws s3api create-bucket --bucket demo-gaurav-lambdajenk --region us-east-1)
                 if %action%==create (aws cloudformation package --template-file cfn-templates/cfn-lambda-template.yaml --s3-bucket demo-gaurav-lambdajenk --output-template-file packaged-cfn-lambda-template.yaml)
                 REM if %action%==create (aws s3 cp packaged-cfn-lambda-template.yaml s3://demo-gaurav-lambdajenk/packaged-cfn-lambda-template.yaml --region us-east-1)
-                if %action%==create (aws cloudformation deploy --template-file packaged-cfn-lambda-template.yaml --stack-name mylambdastack)
+                if %action%==create (aws cloudformation deploy --template-file packaged-cfn-lambda-template.yaml --stack-name mylambdastack --capabilities CAPABILITY_IAM)
                 
                 REM if %action%==update (aws cloudformation update-stack --stack-name mylambdastack --template-body file://cfn-templates/cfn-template.yaml --capabilities CAPABILITY_NAMED_IAM)
                 REM if %action%==delete (aws cloudformation delete-stack --stack-name mylambdastack)
