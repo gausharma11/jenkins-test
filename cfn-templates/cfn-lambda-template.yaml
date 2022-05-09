@@ -4,9 +4,6 @@ Transform: AWS::Serverless-2016-10-31
 Description: A sample template
 
 Resources:
-
-  LambdaZipsBucket:
-    Type: AWS::S3::Bucket
     
   MyFunctionRole:
     Type: AWS::IAM::Role
