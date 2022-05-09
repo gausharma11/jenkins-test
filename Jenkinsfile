@@ -50,7 +50,7 @@ pipeline {
                 echo "template validated--------------------------------->>"
                 if %action%==create (aws cloudformation create-stack --stack-name mycompute --template-body file://cfn-templates/cfn-template.yaml --capabilities CAPABILITY_NAMED_IAM)
                 if %action%==update (aws cloudformation update-stack --stack-name mycompute --template-body file://cfn-templates/cfn-template.yaml --capabilities CAPABILITY_NAMED_IAM)
-                REM if %action%==delete (aws cloudformation delete-stack --stack-name mycompute)
+                if %action%==delete (aws cloudformation delete-stack --stack-name mycompute)
                 '''
             }
         }
@@ -71,6 +71,7 @@ pipeline {
                 if %action%==update (aws cloudformation deploy --template-file packaged-cfn-lambda-template.yaml --stack-name mylambdastack --capabilities CAPABILITY_NAMED_IAM)
                 
                 if %action%==delete (aws cloudformation delete-stack --stack-name mylambdastack)
+                if %action%==delete (aws s3api delete-bucket --bucket demo-gaurav-lambdajenk --region us-east-1)               
                 '''
             }
         }
