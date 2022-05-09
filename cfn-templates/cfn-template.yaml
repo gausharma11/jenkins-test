@@ -14,6 +14,7 @@ Parameters:
   Key:
     Type: String
     Description: The key used to access the instance.
+    Default: "myKPIreland.pem"
   VPC:
     Type: String
     Default: "vpc-03bdce3bb497ee49f"
