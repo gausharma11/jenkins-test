@@ -11,13 +11,15 @@ def lambda_handler(event, context):
     """ lambda function to list ec2 instances """
     print("event=", event)
     print("context=", context)
-    print("test edit")
     filters = [{'Name': 'instance-state-name', 'Values': ['*']}]
     instances = ec2.instances.filter(Filters=filters)
-    running_instances = []
+    all_instances = []
+    print("instances==>", instances)
 
     for instance in instances:
-        running_instances.append(instance.id)
+        all_instances.append(instance.id)
+        print(instance)
+        print(instance.id, instance.type)
 
-    instance_list = json.dumps(running_instances)
+    instance_list = json.dumps(all_instances)
     return{"statusCode": 200, "body": instance_list}
