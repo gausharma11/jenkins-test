@@ -11,7 +11,8 @@ pipeline {
     stages {
         stage('Testing Python Code') {
             steps {
-                bat '''echo \'installing dependencies-------------------->>\'
+                bat '''@echo off
+                echo \'installing dependencies-------------------->>\'
                 echo "creating virtual env-->"
                 python -m venv "tempenv"
                 echo "activating Virtual env"
