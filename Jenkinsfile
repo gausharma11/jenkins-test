@@ -6,7 +6,7 @@ pipeline {
     }
     environment {
         AWS_DEFAULT_REGION="us-east-1"
-        AWS_CREDS1=credentials('aws-jenkins')
+        AWS_CREDS1=credentials('aws-jenkins-creds')
     }
     stages {
         stage('checkout') {
