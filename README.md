@@ -55,23 +55,15 @@ too.
 ### Download the dependency softwares on jenkins EC2.
 
 1. RDP into the instance you created in the previous step.
-2. download the jenkins from the installer- https://www.jenkins.io/download/
-3. download the windows LTS installer.
-4. download the java 8 or java 11 for the Windows x64 Installer from -https://www.oracle.com/in/java/technologies/javase/jdk11-archive-downloads.html
-6. install the jenkins installer and configure based on this link- https://www.jenkins.io/doc/book/installing/windows/
-7. 
-8. 
+3. download the java 8 or java 11 for the Windows x64 Installer from -https://www.oracle.com/in/java/technologies/javase/jdk11-archive-downloads.html
+4. download the git for windows & install - https://git-scm.com/download/win 
+5. downlaod the python or python3 from - https://www.python.org/downloads/windows/
+6. download the awscliv2 from the command prompt & install- msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi
+7. Set the system path for the - Python, Java, git, awscliv2.
+8. download the windows LTS jenkins from the installer- https://www.jenkins.io/download/
+9. install the jenkins installer and configure based on this link- https://www.jenkins.io/doc/book/installing/windows/ or in the section- "Run the Jenkins Setup Wizard"
+ 
 
-### Install Git and Docker on the Jenkins Instance
-
-1. SSH into the Jenkins instance if you are not already there.
-2. Run the following commands on the Jenkins instance:
-
-        sudo yum install -y git docker
-        sudo service docker start
-        # Allow Jenkins to talk to the Docker daemon
-        sudo usermod -aG docker jenkins
-        sudo service jenkins restart
 
 ### Run the Jenkins Setup Wizard
 
@@ -81,6 +73,8 @@ too.
 4. Click **Install suggested plugins** and let the installation finish.
 5. Click **Continue as admin**.
 6. Click **Start using Jenkins**.
+7. Install the custom plugin for storing the AWS credentials- https://plugins.jenkins.io/aws-credentials/
+
 
 ## Creating the Pipeline
 
@@ -91,30 +85,16 @@ We will now create the Jenkins pipeline. Perform the following steps on the Jenk
 3. Choose **Pipeline** as the job type and click **OK**.
 4. Under **Pipeline -> Definition** choose **Pipeline script from SCM**.
 5. Under **SCM** choose **Git**.
-6. Under **Repository URL** paste the [HTTPS URL][9] of your (forked) repository.
-
-> **NOTE:** It is generally recommended to use Git **over SSH** rather than HTTPS, especially in
-> automated processes. However, to simplify things and since the repository is public, we can
-> simply use the HTTPS URL instead of dealing with SSH keys.
-
+6. Under **Repository URL** paste the [HTTPS URL][9] of your (forked) repository or the repo you created by your own.
 7. Leave the rest at the default and click **Save**.
 
 You should now have a pipeline configured. When executing the pipeline, Jenkins will clone the Git
 repository, look for a file named `Jenkinsfile` at its root and execute the instructions in it.
 
-## Configuring the Pipeline
 
-The Jenkins Pipeline plugin supports two types of piplines: **declarative pipelines** and
-**scripted pipelines**. Declarative pipelines are simpler and have a nice, clean syntax. Scripted
-pipelines, on the other hand, offer unlimited flexibility by exposing the full power of the
-[Groovy][11] programming language in the pipeline.
+### Looking at the Pipeline
 
-In this tutorial we will use the **declarative syntax**, which is more than enough for what we are
-trying to accomplish.
-
-### Looking at the Sample Pipeline
-
-Let's take a look at the sample pipeline that is already in the repository. Open the file called
+Let's take a look at the pipeline that is already in the repository. Open the file called
 `Jenkinsfile` file in a text editor (preferably one [which][12] [supports][13] the Jenkinsfile
 syntax).
 
@@ -312,25 +292,3 @@ load balancer.
 revisions in the list, then click **Actions -> Deregister** and then **Deregister**.
 4. In the [Repositories view][14], check the repository you created, then click **Delete
 repository** and then **Delete**.
-
-[1]: https://jenkins.io/doc/book/pipeline/
-[2]: https://aws.amazon.com/fargate/
-[3]: https://aws.amazon.com/cli/
-[4]: https://console.aws.amazon.com/ecs/home?region=us-east-1
-[5]: https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#LoadBalancers:sort=loadBalancerName
-[6]: https://console.aws.amazon.com/iam/home?region=us-east-1#/roles
-[7]: https://console.aws.amazon.com/ec2/v2/home?region=us-east-1
-[8]: https://git-scm.com/
-[9]: https://help.github.com/articles/which-remote-url-should-i-use/
-[10]: https://guides.github.com/activities/forking/
-[11]: http://groovy-lang.org/
-[12]: https://code.visualstudio.com/
-[13]: https://atom.io/
-[14]: https://console.aws.amazon.com/ecs/home?region=us-east-1#/repositories
-[15]: https://jenkins.io/doc/book/pipeline/syntax/#agent
-[16]: https://jenkins.io/doc/pipeline/steps/
-[17]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_execution_IAM_role.html
-[18]: https://console.aws.amazon.com/ecs/home?region=us-east-1#/taskDefinitions
-[19]: https://console.aws.amazon.com/ecs/home?region=us-east-1#/clusters/default/services/sample-app-service/deployments
-[20]: https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html#deregistration-delay
-[21]: https://console.aws.amazon.com/ecs/home?region=us-east-1#/clusters
