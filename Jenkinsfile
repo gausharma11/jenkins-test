@@ -9,37 +9,31 @@ pipeline {
         AWS_CREDS1=credentials('aws-jenkins-creds')
     }
     stages {
-        stage('checkout') {
-            steps {
-                echo 'checking out code------------------>>'
-                checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/feature1']], extensions: [], userRemoteConfigs: [[credentialsId: 'f9e370eb-38f7-4bad-8a21-7dd8349f152c', url: 'https://github.com/gausharma11/jenkins-test.git']]]
-            }
-        }
-        stage('install dependencies') {
+        stage('Testing Python Code') {
             steps {
                 bat '''echo \'installing dependencies-------------------->>\'
+                echo "creating virtual env-->"
                 python -m venv "tempenv"
+                echo "activating Virtual env"
                 call tempenv/Scripts/activate.bat
+                echo "virtual env activated"
                 python -V
                 pip3 -V
+                echo "installing dependencies in the virtual env------->"
                 python -m pip install pytest pylint coverage boto3
+                echo "depedncies installed-------->"
+                echo "checking the linting of the python file/code using the pylint---->"
                 python -m pylint cfn-templates/src/index.py
+                echo "checking the unit cases of the python file/code using the pytest--->"
                 python -m pytest tests/test_index.py
+                echo "Coverage of the code using the coverage---->"
                 coverage report
+                echo "deactivating the virtual env"
                 deactivate
                 '''
             }
-        }    
-        stage('AWS Configure'){
-            steps{
-                bat '''echo "installing the aws cli & boto3------------------------->>"
-                msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi
-                pip install -r requirements.txt
-                echo "dependency completed--------------->>"
-                '''            
-            }                        
         }
-        stage('AWS Deploy Compute Product'){
+        stage('AWS Validate & Deploy Compute Product'){
             steps{
                 echo "Choice: ${params.CFNTemplateAction}"
                 bat '''echo "AWS Deploy--------->>"
@@ -54,7 +48,7 @@ pipeline {
                 '''
             }
         }
-        stage('AWS Deploy Lambda Product'){
+        stage('AWS Validate & Deploy Lambda Product'){
             steps{
                 echo "Choice: ${params.CFNLambdaTemplateAction}"
                 bat '''echo "AWS Deploy--------->>"
