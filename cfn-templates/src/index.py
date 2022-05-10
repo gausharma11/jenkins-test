@@ -19,7 +19,7 @@ def lambda_handler(event, context):
     for instance in instances:
         all_instances.append(instance.id)
         print(instance)
-        print(instance.id, instance.type)
+        print(instance.id, instance.instance_type)
 
     instance_list = json.dumps(all_instances)
     return{"statusCode": 200, "body": instance_list}
