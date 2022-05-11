@@ -3,14 +3,14 @@
 Author: Gaurav Sharma
 
 
-In this readme file you will create a simple CI/CD pipeline using Jenkins deployed on the EC2 Windows host pn AWS in order to push/publish the lambda written in the python and the push /publish AWS resources mentioned in the cfn-templates.yaml file on the AWS Console.
+In this readme file you will create a simple CI/CD pipeline using Jenkins deployed on the EC2 Windows host on AWS in order to push/publish the lambda written in the python and the push /publish AWS resources mentioned in the cfn-templates.yaml file on the AWS Console.
 
 
 ## Prerequisites
 
 You will need the following to complete pre-requisite:
 
-- An AWS account //sign up and sign in the AWS Console.
+- An AWS account, sign up and sign in the AWS Console.
 - python
 - git
 - java 8 or 11
@@ -26,18 +26,17 @@ refer the section "Preparing Jenkins"
 
 ## Forking the Repository
 
-You will have to push changes to Github in order to trigger the CI/CD pipeline. Therefore, before
-going any further in this tutorial, **fork this repository** and work on your own fork from now on.
+You will have to push changes to Github in order to trigger the CI/CD pipeline, **fork this repository** and work on your own fork from now on.
 
 ## Preparing Jenkins
 
-You will need a Jenkins instance for this tutorial. Perform the following steps to deploy Jenkins
+You will need a Jenkins instance for this. Perform the following steps to deploy Jenkins
 inside your AWS account:
 
 ### Create an IAM User for Jenkins
 
 1. In the AWS IAM create a user in order to use the programmatic access & awscli.
-2. Assign the AmazonEC2FullAccess & AWSCloudFormationFullAccess Policy under the permission tab.
+2. Assign the AmazonEC2FullAccess & AWSCloudFormationFullAccess(for our case to simplicity we took the administratoraccess policy) Policy under the permission tab.
 3. Get the AccessKeyId & SecretAccessKeyId for the configuration purpose in the AWS Credentials store using plugin- https://plugins.jenkins.io/aws-credentials/ 
 
 ### Create an EC2 Instance
@@ -148,6 +147,6 @@ on the left side. To see the logs from the build, click the build number.
 
 **Note**
 Please Evaluate the things and implement as per your need, there are few things which are limitation to me & can be enhanced in other ways.
-Like - Hardware compatibilty & Cost budget.
+Like - Hardware compatibilty , Cost budget & time frames.
 
 
